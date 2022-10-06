@@ -1,0 +1,4 @@
+image:
+  repository: frappe/erpnext-worker
+  tag: v14.2.2
+  pullPolicy: IfNotPresent
