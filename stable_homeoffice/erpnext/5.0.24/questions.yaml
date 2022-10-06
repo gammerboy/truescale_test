@@ -1,6 +1,5 @@
 # Include{groups}
 portals:
-  portals:
   web_portal:
     protocols:
       - "$kubernetes-resource_configmap_nginx-configuration_protocol"
