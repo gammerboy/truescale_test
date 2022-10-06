@@ -1,4 +1,25 @@
 # Include{groups}
+
+groups:
+  - name: "Container Images"
+    description: "Image to be used for container"
+  - name: "Nextcloud Configuration"
+    description: "Configuration details for Nextcloud workload"
+  - name: "Storage"
+    description: "Configure Storage for Nextcloud"
+  - name: "Container Configuration"
+    description: "Configure nextcloud container parameters"
+  - name: "Postgresql Configuration"
+    description: "Configure Postgresql for nextcloud"
+  - name: "CronJob configuration"
+    description: "Configure CronJob for nextcloud"
+  - name: "Scaling/Upgrade Policy"
+    description: "Configure how pods are replaced when configuration is upgraded"
+  - name: "Advanced DNS Settings"
+    description: "Configure DNS settings"
+  - name: "Resource Limits"
+    description: "Set CPU/memory limits for Kubernetes Pod"
+
 portals:
   web_portal:
     protocols:
