@@ -463,10 +463,10 @@ questions:
             type: dict
             attrs:
               - variable: enabled
-                label: (Advanced) boolean
-                description: false
+                label: (Advanced) false
+                description: "false"
                 schema:
-                  type: string
+                  type: boolean
                   default: false
               - variable: size
                 label: (Advanced) size
