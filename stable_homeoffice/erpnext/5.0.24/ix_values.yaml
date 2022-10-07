@@ -3,7 +3,7 @@ persistence:
     enabled: true
     # existingClaim: ""
     size: 8Gi
-    storageClass: "local"
+    storageClass: "openebs-zfspv"
   logs:
     # Container based log search and analytics stack recommended
     enabled: false
