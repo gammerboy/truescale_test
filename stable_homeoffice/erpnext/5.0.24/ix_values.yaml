@@ -3,10 +3,10 @@ persistence:
     enabled: true
     # existingClaim: ""
     size: 8Gi
-    storageClass: "scale-zfs"
+    storageClass: "zfs"
   logs:
     # Container based log search and analytics stack recommended
     enabled: false
     # existingClaim: ""
     size: 8Gi
-    # storageClass: "scale-zfs"
+    # storageClass: "zfs"
