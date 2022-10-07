@@ -425,22 +425,3 @@ questions:
                         default: ""
                         required: true
 
-  - variable: persistence
-    label: Additional App Storage
-    group: Storage and Persistence
-    schema:
-      type: list
-      default: []
-      items:
-        - variable: worker
-          label: Custom Storage
-          schema:
-            additional_attrs: true
-            type: dict
-            attrs:
-              - variable: storageClass
-                label: (Advanced) StorageClass
-                description: "Warning: Anything other than SCALE-ZFS or empty will break rollback!"
-                schema:
-                  type: string
-                  default: SCALE-ZFS
