@@ -22,7 +22,7 @@ portals:
 
 questions:
   - variable: web_port
-    label: "Web Port for homeassistant"
+    label: "Web Port for erpnext"
     group: Networking
     schema:
       type: int
