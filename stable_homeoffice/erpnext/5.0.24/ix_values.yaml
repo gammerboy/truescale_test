@@ -1,4 +1,12 @@
-image:
-  repository: frappe/erpnext-worker
-  tag: v14.2.2
-  pullPolicy: IfNotPresent
+persistence:
+  worker:
+    enabled: true
+    # existingClaim: ""
+    size: 8Gi
+    storageClass: "SCALE-ZFS"
+  logs:
+    # Container based log search and analytics stack recommended
+    enabled: false
+    # existingClaim: ""
+    size: 8Gi
+    # storageClass: "SCALE-ZFS"
