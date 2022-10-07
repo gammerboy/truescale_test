@@ -429,7 +429,7 @@ questions:
     label: Additional App Storage
     group: Storage and Persistence
     schema:
-      type: list
+      type: dict
       items:
         - variable: worker
           label: Custom Storage
