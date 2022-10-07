@@ -429,8 +429,9 @@ questions:
     label: Additional App Storage
     group: Storage and Persistence
     schema:
-      type: string
-      subquestions:
+      type: list
+      default: []
+      items:
         - variable: worker
           label: Custom Storage
           schema:
