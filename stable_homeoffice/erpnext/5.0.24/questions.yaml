@@ -1,35 +1,35 @@
 # Include{groups}
 
 groups:
-  - name: "Container Images"
-    description: "Image to be used for container"
-  - name: "Nextcloud Configuration"
-    description: "Configuration details for Nextcloud workload"
-  - name: "Storage"
-    description: "Configure Storage for Nextcloud"
+  - name: "Ingress"
+    description: "Ingress for erpnext"
+  - name: "Networking"
+    description: "Networking for erpext"
   - name: "Container Configuration"
     description: "Configure nextcloud container parameters"
-  - name: "Postgresql Configuration"
-    description: "Configure Postgresql for nextcloud"
-  - name: "CronJob configuration"
-    description: "Configure CronJob for nextcloud"
-  - name: "Scaling/Upgrade Policy"
-    description: "Configure how pods are replaced when configuration is upgraded"
-  - name: "Advanced DNS Settings"
-    description: "Configure DNS settings"
-  - name: "Resource Limits"
-    description: "Set CPU/memory limits for Kubernetes Pod"
 
 portals:
   web_portal:
     protocols:
-      - "$kubernetes-resource_configmap_nginx-configuration_protocol"
+      - "http"
     host:
-      - "$variable-erpnext.host"
+      - "$node_ip"
     ports:
-      - "$variable-erpnext.nodePort"
+      - "$variable-web_port"
+    path: "/"
+
 # Include{portalLink}
+
 questions:
+  - variable: web_port
+    label: "Web Port for homeassistant"
+    group: Networking
+    schema:
+      type: int
+      min: 8000
+      max: 65535
+      default: 8080
+      required: true
 # Include{global}
 # Include{controller}
 # Include{controllerDeployment}
@@ -56,12 +56,7 @@ questions:
 # Include{persistenceAdvanced}
 # Include{persistenceList}
 # Include{ingressRoot}
-        - variable: main
-          label: "Main Ingress"
-          schema:
-            additional_attrs: true
-            type: dict
-            attrs:
+
 # Include{ingressDefault}
 # Include{ingressTLS}
 # Include{ingressTraefik}
@@ -71,24 +66,6 @@ questions:
 # Include{securityContextAdvancedRoot}
 # Include{securityContextAdvanced}
 # Include{podSecurityContextRoot}
-        - variable: runAsUser
-          label: "runAsUser"
-          description: "The UserID of the user running the application"
-          schema:
-            type: int
-            default: 0
-        - variable: runAsGroup
-          label: "runAsGroup"
-          description: "The groupID this App of the user running the application"
-          schema:
-            type: int
-            default: 0
-        - variable: fsGroup
-          label: "fsGroup"
-          description: "The group that should own ALL storage."
-          schema:
-            type: int
-            default: 33
 # Include{podSecurityContextAdvanced}
 # Include{resources}
 # Include{advanced}
@@ -98,3 +75,181 @@ questions:
 # Include{netshoot}
 # Include{vpn}
 # Include{documentation}
+
+
+  - variable: ingressList
+    label: Add Manual Custom Ingresses
+    group: Ingress
+    schema:
+      type: list
+      default: []
+      items:
+        - variable: ingressListEntry
+          label: Custom Ingress
+          schema:
+            additional_attrs: true
+            type: dict
+            attrs:
+              - variable: enabled
+                label: Enable Ingress
+                schema:
+                  type: boolean
+                  default: true
+                  hidden: true
+              - variable: name
+                label: Name
+                schema:
+                  type: string
+                  default: ""
+              - variable: ingressClassName
+                label: IngressClass Name
+                schema:
+                  type: string
+                  default: ""
+              - variable: labelsList
+                label: Labels
+                schema:
+                  type: list
+                  default: []
+                  items:
+                    - variable: labelItem
+                      label: Label
+                      schema:
+                        additional_attrs: true
+                        type: dict
+                        attrs:
+                          - variable: name
+                            label: Name
+                            schema:
+                              type: string
+                          - variable: value
+                            label: Value
+                            schema:
+                              type: string
+              - variable: annotationsList
+                label: Annotations
+                schema:
+                  type: list
+                  default: []
+                  items:
+                    - variable: annotationItem
+                      label: Label
+                      schema:
+                        additional_attrs: true
+                        type: dict
+                        attrs:
+                          - variable: name
+                            label: Name
+                            schema:
+                              type: string
+                          - variable: value
+                            label: Value
+                            schema:
+                              type: string
+              - variable: hosts
+                label: Hosts
+                schema:
+                  type: list
+                  default: []
+                  items:
+                    - variable: hostEntry
+                      label: Host
+                      schema:
+                        additional_attrs: true
+                        type: dict
+                        attrs:
+                          - variable: host
+                            label: HostName
+                            schema:
+                              type: string
+                              default: ""
+                              required: true
+                          - variable: paths
+                            label: Paths
+                            schema:
+                              type: list
+                              default: []
+                              items:
+                                - variable: pathEntry
+                                  label: Host
+                                  schema:
+                                    additional_attrs: true
+                                    type: dict
+                                    attrs:
+                                      - variable: path
+                                        label: Path
+                                        schema:
+                                          type: string
+                                          required: true
+                                          default: "/"
+                                      - variable: pathType
+                                        label: Path Type
+                                        schema:
+                                          type: string
+                                          required: true
+                                          default: Prefix
+                                      - variable: service
+                                        label: Linked Service
+                                        schema:
+                                          additional_attrs: true
+                                          type: dict
+                                          attrs:
+                                            - variable: name
+                                              label: Service Name
+                                              schema:
+                                                type: string
+                                                default: ""
+                                            - variable: port
+                                              label: Service Port
+                                              schema:
+                                                type: int
+              - variable: tls
+                label: TLS-Settings
+                schema:
+                  type: list
+                  default: []
+                  items:
+                    - variable: tlsEntry
+                      label: Host
+                      schema:
+                        additional_attrs: true
+                        type: dict
+                        attrs:
+                          - variable: hosts
+                            label: Certificate Hosts
+                            schema:
+                              type: list
+                              default: []
+                              items:
+                                - variable: host
+                                  label: Host
+                                  schema:
+                                    type: string
+                                    default: ""
+                                    required: true
+                          - variable: scaleCert
+                            label: Select TrueNAS SCALE Certificate
+                            schema:
+                              type: int
+                              $ref:
+                                - "definitions/certificate"
+              - variable: entrypoint
+                label: Traefik Entrypoint
+                description: Entrypoint used by Traefik when using Traefik as Ingress Provider
+                schema:
+                  type: string
+                  default: websecure
+                  required: true
+              - variable: middlewares
+                label: Traefik Middlewares
+                description: Add previously created Traefik Middlewares to this Ingress
+                schema:
+                  type: list
+                  default: []
+                  items:
+                    - variable: name
+                      label: Name
+                      schema:
+                        type: string
+                        default: ""
+                        required: true
