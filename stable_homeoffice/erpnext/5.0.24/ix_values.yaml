@@ -3,7 +3,7 @@ persistence:
     enabled: true
     # existingClaim: ""
     size: 8Gi
-    storageClass: "gp2"
+    storageClass: "nfs"
   logs:
     # Container based log search and analytics stack recommended
     enabled: false
