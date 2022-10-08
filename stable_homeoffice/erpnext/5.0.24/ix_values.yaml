@@ -3,7 +3,7 @@ persistence:
     enabled: true
     # existingClaim: ""
     size: 8Gi
-    storageClass: "openebs-zfspv"
+    storageClass: "ix-storage-class-erpnexttest"
   logs:
     # Container based log search and analytics stack recommended
     enabled: false
